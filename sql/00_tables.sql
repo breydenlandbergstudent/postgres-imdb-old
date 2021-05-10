@@ -1,4 +1,4 @@
-CREATE TABLE media_title (
+CREATE TABLE media_title(
 	media_title_id TEXT PRIMARY KEY,
 	media_type TEXT NOT NULL,
 	media_primary_title TEXT NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE media_title (
 	genres TEXT
 );
 
-CREATE TABLE media_name (
+CREATE TABLE media_name(
 	media_name_id TEXT PRIMARY KEY,
 	full_name TEXT,
 	birth_year INTEGER,
@@ -19,13 +19,18 @@ CREATE TABLE media_name (
 	famous_titles TEXT
 );
 
-CREATE TABLE media_title_crew (
+CREATE TABLE media_title_crew(
 	media_title_id TEXT,
 	directors TEXT,
-	writers TEXT
+	writers TEXT,
+	
+	-- add foreign key
+	CONSTRAINT fk_crew_media_title_id
+		FOREIGN KEY(media_title_id)
+			REFERENCES media_title(media_title_id)
 );
 
-CREATE TABLE media_title_principal_crew (
+CREATE TABLE media_title_principal_crew(
 	media_title_id TEXT,
 	meta_ordering INTEGER NOT NULL,
 	media_name_id TEXT,
@@ -34,14 +39,14 @@ CREATE TABLE media_title_principal_crew (
 	character_played TEXT
 );
 
-CREATE TABLE media_title_episode (
+CREATE TABLE media_title_episode(
 	media_title_id TEXT,
 	media_title_parent_id TEXT,
 	season_number INTEGER,
 	episode_number INTEGER
 );
 
-CREATE TABLE media_title_rating (
+CREATE TABLE media_title_rating(
 	media_title_id TEXT,
 	average_rating NUMERIC(3, 1) NOT NULL,
 	vote_count INTEGER NOT NULL
