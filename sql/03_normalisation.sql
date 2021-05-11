@@ -28,8 +28,8 @@ UPDATE media_name_temp AS mnt
 		   This information can be found at: https://help.imdb.com/article/contribution/names-biographical-data/names/GSA3M6SFHRAERXZ3#
 	*/
 		WHEN full_name LIKE 'Mr.%' OR full_name LIKE 'Ms.%' OR full_name LIKE 'Dr.%'
-		  OR full_name LIKE 'St.%' OR full_name LIKE 'Lt.%' 						THEN LEFT(full_name, 3)
-		WHEN full_name LIKE 'Mrs.%'													THEN LEFT(full_name, 4)
+		  OR full_name LIKE 'St.%' OR full_name LIKE 'Lt.%' 				THEN LEFT(full_name, 3)
+		WHEN full_name LIKE 'Mrs.%'							THEN LEFT(full_name, 4)
 		END),
 		
 		suffix = (CASE
@@ -49,9 +49,9 @@ UPDATE media_name_temp AS mnt
 	*/
 		WHEN(full_name LIKE '% I'   OR full_name LIKE '% V'  OR full_name LIKE '% X')  AND prefix IS NULL THEN RIGHT(full_name, 1)
 		WHEN(full_name LIKE '% _I'  OR full_name LIKE '% IV' OR full_name LIKE '% IX' 
-			 												 OR full_name LIKE '% X_') AND prefix IS NULL THEN RIGHT(full_name, 2)
+			 					     OR full_name LIKE '% X_') AND prefix IS NULL THEN RIGHT(full_name, 2)
 		WHEN(full_name LIKE '% __I' OR full_name LIKE '% _I_'
-		  OR full_name LIKE '% Jr.' OR full_name LIKE '% Sr.') 						   AND prefix IS NULL THEN RIGHT(full_name, 3)
-		WHEN(full_name LIKE '% __II')												   AND prefix IS NULL THEN RIGHT(full_name, 4)
-		WHEN(full_name LIKE '% XVIII') 												   AND prefix IS NULL THEN RIGHT(full_name, 5)
+		  OR full_name LIKE '% Jr.' OR full_name LIKE '% Sr.')			       AND prefix IS NULL THEN RIGHT(full_name, 3)
+		WHEN(full_name LIKE '% __II')						       AND prefix IS NULL THEN RIGHT(full_name, 4)
+		WHEN(full_name LIKE '% XVIII') 						       AND prefix IS NULL THEN RIGHT(full_name, 5)
 		END);
